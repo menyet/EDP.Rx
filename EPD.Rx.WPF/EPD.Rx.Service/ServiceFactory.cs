@@ -1,6 +1,6 @@
 ﻿namespace EPD.Rx.Service
 {
-    static class ServiceFactory
+    public static class ServiceFactory
     {
         public static IService GetService()
         {
