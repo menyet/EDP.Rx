@@ -1,5 +1,7 @@
 ﻿using EPD.Rx.Service;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace EPD.Rx.WPF
 {
@@ -17,7 +19,9 @@ namespace EPD.Rx.WPF
         {
             var svc = ServiceFactory.GetService();
 
-            // result.Text += svc.GetWords().Aggregate; 
+            var text = (sender as TextBox).Text;
+
+            result.Text = svc.GetWords(text).Aggregate("", (x, y) => x + "\n" + y);
         }
     }
 }

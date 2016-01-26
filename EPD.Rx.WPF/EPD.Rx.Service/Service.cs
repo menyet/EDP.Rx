@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -6,30 +8,22 @@ namespace EPD.Rx.Service
 {
     internal class Service : IService
     {
-        public string[] GetWords(string text)
+        public IReadOnlyCollection<string> GetWords(string text)
         {
             var a = new Random();
 
             Thread.Sleep(100 + a.Next(2000));
 
-            return new[]
-            {
-                "asd","bsd"
-            };
+            return DataProvider.CarsList.Where(x => x.StartsWith(text)).ToList();
         }
 
-        public async Task<string[]> GetWordsAsync(string text)
+        public async Task<IReadOnlyCollection<string>> GetWordsAsync(string text)
         {
             var a = new Random();
 
-            await Task.Wait(100 + a.Next(2000));
+            await Task.Delay(100 + a.Next(2000));
 
-            await Task.Wait(100);
-
-            return new[]
-            {
-                "asd","bsd"
-            };
+            return DataProvider.CarsList.Where(x => x.StartsWith(text)).ToList();
         }
     }
 }

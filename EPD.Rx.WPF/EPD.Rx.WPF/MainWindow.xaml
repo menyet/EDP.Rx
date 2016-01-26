@@ -8,6 +8,6 @@
         Title="MainWindow" Height="350" Width="525">
     <StackPanel>
         <TextBox TextChanged="TextBox_TextChanged"></TextBox>
-        <TextBox Name="result" />
+        <TextBox Name="result" IsReadOnly="true" />
     </StackPanel>
 </Window>
