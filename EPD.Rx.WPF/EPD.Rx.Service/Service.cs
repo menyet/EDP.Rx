@@ -25,5 +25,33 @@ namespace EPD.Rx.Service
 
             return DataProvider.CarsList.Where(x => x.StartsWith(text)).ToList();
         }
+
+
+        public string GetData(string firstName, string lastName, int duration)
+        {
+            Console.WriteLine("Starting to load data on thread {0}", Thread.CurrentThread.ManagedThreadId);
+            var a = new Random();
+
+            Thread.Sleep(duration * 1000);
+
+            Console.WriteLine("Finished loading data on thread {0}", Thread.CurrentThread.ManagedThreadId);
+            return firstName + " " + lastName;
+        }
+
+        public async Task<string> GetDataAsync(string firstName, string lastName, int duration, CancellationToken cancellationToken)
+        {
+            var a = new Random();
+
+            try
+            {
+                await Task.Delay(duration*1000, cancellationToken);
+            }
+            catch (OperationCanceledException)
+            {
+                Console.WriteLine("Operation canceled");
+            }
+
+            return firstName + " " + lastName;
+        }
     }
 }

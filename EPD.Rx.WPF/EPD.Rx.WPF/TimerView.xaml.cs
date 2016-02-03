@@ -1,19 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace EPD.Rx.WPF
 {
@@ -36,6 +25,8 @@ namespace EPD.Rx.WPF
 
             timer = new Timer();
             timer.Interval = 20;
+
+            // timer.Elapsed += TimerOnElapsed;
             // timer.Enabled = true;
 
             obs = Observable.FromEvent<ElapsedEventHandler, ElapsedEventArgs>(
@@ -47,12 +38,21 @@ namespace EPD.Rx.WPF
 
                 handler => timer.Elapsed += handler, handler => timer.Elapsed -= handler);
 
-            obs.Throttle(TimeSpan.FromSeconds(1)).Subscribe(X);
+            // obs.Throttle(TimeSpan.FromSeconds(1)).Subscribe(X);
+            obs.Sample(TimeSpan.FromSeconds(1)).Subscribe(X);
+            // obs.Subscribe(X);
+        }
+
+        private void TimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            Console.WriteLine("elapsed");
         }
 
         private void X(ElapsedEventArgs args)
         {
-            MessageBox.Show("asd");
+            // MessageBox.Show("asd");
+
+            Console.WriteLine("elapsed");
         }
 
         private void Toggle_Unchecked(object sender, RoutedEventArgs e)

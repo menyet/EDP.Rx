@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EPD.Rx.Service
@@ -8,5 +9,9 @@ namespace EPD.Rx.Service
         IReadOnlyCollection<string> GetWords(string text);
 
         Task<IReadOnlyCollection<string>> GetWordsAsync(string text);
+
+        string GetData(string firstName, string lastName, int duration);
+
+        Task<string> GetDataAsync(string firstName, string lastName, int duration, CancellationToken cancellationToken);
     }
 }

@@ -4,9 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EPD.Rx.WPF"
+        xmlns:throttling="clr-namespace:EPD.Rx.WPF.Throttling"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <TabControl>
+    
+    <DockPanel LastChildFill="True">
+        <Rectangle x:Name="rect1" Fill="Green" RenderTransformOrigin="0.5, 0.5" DockPanel.Dock="Top" HorizontalAlignment="Right" Width="50" Height="50">
+            <Rectangle.RenderTransform>
+                <RotateTransform/>
+            </Rectangle.RenderTransform>
+            <Rectangle.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)" To="-360" Duration="0:0:1" RepeatBehavior="Forever"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Rectangle.Triggers>
+        </Rectangle>
+        
+        <TabControl>
         <TabItem Header="1">
             <StackPanel>
                 <TextBox TextChanged="TextBox_TextChanged"></TextBox>
@@ -17,6 +35,12 @@
         <TabItem Header="Timer">
             <local:TimerView />
         </TabItem>
-        
+
+        <TabItem Header="Timer">
+            <throttling:ThrottlingExample />
+        </TabItem>
+
     </TabControl>
+        </DockPanel>
+               
 </Window>
