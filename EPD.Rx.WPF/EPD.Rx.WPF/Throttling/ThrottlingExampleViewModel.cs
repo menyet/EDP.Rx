@@ -28,15 +28,15 @@ namespace EPD.Rx.WPF.Throttling
             LastNames = new ReadOnlyCollection<string>(new List<string> {"Smith", "White", "Black"});
 
 
-            var uiScheduler = new SynchronizationContextScheduler(SynchronizationContext.Current);
+            //var uiScheduler = new SynchronizationContextScheduler(SynchronizationContext.Current);
 
-            _requestParametersObservable = new Subject<Tuple<string, string>>();
-            _requestParametersObservable// .SubscribeOn(NewThreadScheduler.Default).Select(LoadData)
-                                        //.Select(parameters => Observable.Start(() => LoadData(parameters), ThreadPoolScheduler.Instance))
-                .Select(parameters => Observable.FromAsync(token => LoadDataAsync(parameters, token)))
-                .Switch()
-                .ObserveOn(DispatcherScheduler.Current)
-                .Subscribe(WriteData);
+            //_requestParametersObservable = new Subject<Tuple<string, string>>();
+            //_requestParametersObservable// .SubscribeOn(NewThreadScheduler.Default).Select(LoadData)
+            //                            //.Select(parameters => Observable.Start(() => LoadData(parameters), ThreadPoolScheduler.Instance))
+            //    .Select(parameters => Observable.FromAsync(token => LoadDataAsync(parameters, token)))
+            //    .Switch()
+            //    .ObserveOn(DispatcherScheduler.Current)
+            //    .Subscribe(WriteData);
         }
 
         public ObservableCollection<string> Output { get; private set; }
