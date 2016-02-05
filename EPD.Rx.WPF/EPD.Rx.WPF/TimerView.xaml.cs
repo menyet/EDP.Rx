@@ -12,9 +12,7 @@ namespace EPD.Rx.WPF
     public partial class TimerView : UserControl
     {
 
-        System.Timers.Timer timer;
-
-        IObservable<ElapsedEventArgs> obs;
+        Timer timer;
 
         public TimerView()
         {
@@ -26,21 +24,8 @@ namespace EPD.Rx.WPF
             timer = new Timer();
             timer.Interval = 20;
 
-            // timer.Elapsed += TimerOnElapsed;
-            // timer.Enabled = true;
-
-            obs = Observable.FromEvent<ElapsedEventHandler, ElapsedEventArgs>(
-                handler =>
-                {
-                    ElapsedEventHandler kpeHandler = (sender, e) => handler(e);
-                    return kpeHandler;
-                },
-
-                handler => timer.Elapsed += handler, handler => timer.Elapsed -= handler);
-
-            // obs.Throttle(TimeSpan.FromSeconds(1)).Subscribe(X);
-            obs.Sample(TimeSpan.FromSeconds(1)).Subscribe(X);
-            // obs.Subscribe(X);
+            timer.Elapsed += TimerOnElapsed;
+            timer.Enabled = true;
         }
 
         private void TimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
@@ -50,8 +35,6 @@ namespace EPD.Rx.WPF
 
         private void X(ElapsedEventArgs args)
         {
-            // MessageBox.Show("asd");
-
             Console.WriteLine("elapsed");
         }
 
